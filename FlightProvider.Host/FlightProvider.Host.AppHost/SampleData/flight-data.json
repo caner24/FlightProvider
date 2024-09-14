@@ -1,0 +1,120 @@
+{ "index": { "_index": "cities", "_id": "ADF" } }
+{ "code": "ADF", "title": "Adıyaman" }
+{ "index": { "_index": "cities", "_id": "GZP" } }
+{ "code": "GZP", "title": "Alanya – Gazipaşa" }
+{ "index": { "_index": "cities", "_id": "AMS" } }
+{ "code": "AMS", "title": "Amsterdam" }
+{ "index": { "_index": "cities", "_id": "ESB" } }
+{ "code": "ESB", "title": "Ankara" }
+{ "index": { "_index": "cities", "_id": "AYT" } }
+{ "code": "AYT", "title": "Antalya" }
+{ "index": { "_index": "cities", "_id": "BSL" } }
+{ "code": "BSL", "title": "Basel" }
+{ "index": { "_index": "cities", "_id": "BAL" } }
+{ "code": "BAL", "title": "Batman" }
+{ "index": { "_index": "cities", "_id": "BER" } }
+{ "code": "BER", "title": "Berlin" }
+{ "index": { "_index": "cities", "_id": "BJV" } }
+{ "code": "BJV", "title": "Bodrum - Muğla" }
+{ "index": { "_index": "cities", "_id": "GVA" } }
+{ "code": "GVA", "title": "Cenevre" }
+{ "index": { "_index": "cities", "_id": "JED" } }
+{ "code": "JED", "title": "Cidde" }
+{ "index": { "_index": "cities", "_id": "TEQ" } }
+{ "code": "TEQ", "title": "Çorlu - Tekirdağ" }
+{ "index": { "_index": "cities", "_id": "DLM" } }
+{ "code": "DLM", "title": "Dalaman" }
+{ "index": { "_index": "cities", "_id": "DNZ" } }
+{ "code": "DNZ", "title": "Denizli" }
+{ "index": { "_index": "cities", "_id": "DIY" } }
+{ "code": "DIY", "title": "Diyarbakır" }
+{ "index": { "_index": "cities", "_id": "DXB" } }
+{ "code": "DXB", "title": "Dubai" }
+{ "index": { "_index": "cities", "_id": "DUS" } }
+{ "code": "DUS", "title": "Düsseldorf" }
+{ "index": { "_index": "cities", "_id": "EDO" } }
+{ "code": "EDO", "title": "Edremit - Balıkesir" }
+{ "index": { "_index": "cities", "_id": "EZS" } }
+{ "code": "EZS", "title": "Elazığ" }
+{ "index": { "_index": "cities", "_id": "ERC" } }
+{ "code": "ERC", "title": "Erzincan" }
+{ "index": { "_index": "cities", "_id": "ERZ" } }
+{ "code": "ERZ", "title": "Erzurum" }
+{ "index": { "_index": "cities", "_id": "FRA" } }
+{ "code": "FRA", "title": "Frankfurt" }
+{ "index": { "_index": "cities", "_id": "GZT" } }
+{ "code": "GZT", "title": "Gaziantep" }
+{ "index": { "_index": "cities", "_id": "HAM" } }
+{ "code": "HAM", "title": "Hamburg" }
+{ "index": { "_index": "cities", "_id": "HAJ" } }
+{ "code": "HAJ", "title": "Hannover" }
+{ "index": { "_index": "cities", "_id": "HRG" } }
+{ "code": "HRG", "title": "Hurgada" }
+{ "index": { "_index": "cities", "_id": "HBE" } }
+{ "code": "HBE", "title": "İskenderiye" }
+{ "index": { "_index": "cities", "_id": "SAW" } }
+{ "code": "SAW", "title": "İstanbul" }
+{ "index": { "_index": "cities", "_id": "IST" } }
+{ "code": "IST", "title": "İstanbul" }
+{ "index": { "_index": "cities", "_id": "ADB" } }
+{ "code": "ADB", "title": "İzmir" }
+{ "index": { "_index": "cities", "_id": "ASR" } }
+{ "code": "ASR", "title": "Kayseri" }
+{ "index": { "_index": "cities", "_id": "KYA" } }
+{ "code": "KYA", "title": "Konya" }
+{ "index": { "_index": "cities", "_id": "CPH" } }
+{ "code": "CPH", "title": "Kopenhag" }
+{ "index": { "_index": "cities", "_id": "CGN" } }
+{ "code": "CGN", "title": "Köln" }
+{ "index": { "_index": "cities", "_id": "KWI" } }
+{ "code": "KWI", "title": "Kuveyt" }
+{ "index": { "_index": "cities", "_id": "ECN" } }
+{ "code": "ECN", "title": "Lefkoşa" }
+{ "index": { "_index": "cities", "_id": "STN" } }
+{ "code": "STN", "title": "Londra" }
+{ "index": { "_index": "cities", "_id": "LYS" } }
+{ "code": "LYS", "title": "Lyon" }
+{ "index": { "_index": "cities", "_id": "MAD" } }
+{ "code": "MAD", "title": "Madrid" }
+{ "index": { "_index": "cities", "_id": "MLX" } }
+{ "code": "MLX", "title": "Malatya" }
+{ "index": { "_index": "cities", "_id": "MAN" } }
+{ "code": "MAN", "title": "Manchester" }
+{ "index": { "_index": "cities", "_id": "MED" } }
+{ "code": "MED", "title": "Medine" }
+{ "index": { "_index": "cities", "_id": "MZH" } }
+{ "code": "MZH", "title": "Merzifon - Amasya" }
+{ "index": { "_index": "cities", "_id": "MUC" } }
+{ "code": "MUC", "title": "Münih" }
+{ "index": { "_index": "cities", "_id": "NUE" } }
+{ "code": "NUE", "title": "Nürnberg" }
+{ "index": { "_index": "cities", "_id": "OSL" } }
+{ "code": "OSL", "title": "Oslo" }
+{ "index": { "_index": "cities", "_id": "ORY" } }
+{ "code": "ORY", "title": "Paris" }
+{ "index": { "_index": "cities", "_id": "PRG" } }
+{ "code": "PRG", "title": "Prag" }
+{ "index": { "_index": "cities", "_id": "RUH" } }
+{ "code": "RUH", "title": "Riyad" }
+{ "index": { "_index": "cities", "_id": "RZV" } }
+{ "code": "RZV", "title": "Rize" }
+{ "index": { "_index": "cities", "_id": "FCO" } }
+{ "code": "FCO", "title": "Roma" }
+{ "index": { "_index": "cities", "_id": "SZF" } }
+{ "code": "SZF", "title": "Samsun" }
+{ "index": { "_index": "cities", "_id": "SJJ" } }
+{ "code": "SJJ", "title": "Saraybosna" }
+{ "index": { "_index": "cities", "_id": "VAS" } }
+{ "code": "VAS", "title": "Sivas" }
+{ "index": { "_index": "cities", "_id": "STR" } }
+{ "code": "STR", "title": "Stuttgart" }
+{ "index": { "_index": "cities", "_id": "GNY" } }
+{ "code": "GNY", "title": "Şanlıurfa" }
+{ "index": { "_index": "cities", "_id": "TBS" } }
+{ "code": "TBS", "title": "Tiflis" }
+{ "index": { "_index": "cities", "_id": "TZX" } }
+{ "code": "TZX", "title": "Trabzon" }
+{ "index": { "_index": "cities", "_id": "VIE" } }
+{ "code": "VIE", "title": "Viyana" }
+{ "index": { "_index": "cities", "_id": "ZRH" } }
+{ "code": "ZRH", "title": "Zürih" }

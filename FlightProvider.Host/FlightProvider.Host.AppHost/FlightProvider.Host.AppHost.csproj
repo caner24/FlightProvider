@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsAspireHost>true</IsAspireHost>
+    <UserSecretsId>b278e092-2818-41ae-a662-7e6bb5f5f027</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.AppHost" Version="8.2.0" />
+    <PackageReference Include="Aspire.Hosting.Elasticsearch" Version="8.2.0-preview.1.24428.5" />
+    <PackageReference Include="Aspire.Hosting.NodeJs" Version="8.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\FlightProvider.Api\FlightProvider.Api.csproj" />
+    <ProjectReference Include="..\..\FlightProvider\FlightProvider.csproj" />
+  </ItemGroup>
+
+</Project>
