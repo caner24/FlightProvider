@@ -2,6 +2,7 @@ using Aspire.Hosting;
 
 var builder = DistributedApplication.CreateBuilder(args);
 
+
 var elasticSearchPassword = builder.AddParameter("elasticsearchpassword");
 var elastic = builder.AddElasticsearch("elasticsearch", password: elasticSearchPassword);
 
