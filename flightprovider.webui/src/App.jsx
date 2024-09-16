@@ -11,13 +11,6 @@ const FlightBookingTemplate = () => {
 
                 <div className="flex space-x-4 mb-6">
                     <button
-                        className={`px-4 py-2 rounded ${tripType === 'roundTrip' ? 'bg-blue-600 text-white' : 'bg-gray-200'
-                            }`}
-                        onClick={() => setTripType('roundTrip')}
-                    >
-                        Gidiş-Dönüş
-                    </button>
-                    <button
                         className={`px-4 py-2 rounded ${tripType === 'oneWay' ? 'bg-blue-600 text-white' : 'bg-gray-200'
                             }`}
                         onClick={() => setTripType('oneWay')}
@@ -59,18 +52,6 @@ const FlightBookingTemplate = () => {
                             <Calendar className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
                         </div>
                     </div>
-                    {tripType === 'roundTrip' && (
-                        <div className="col-span-2 sm:col-span-1">
-                            <label className="block text-sm font-medium text-gray-700 mb-1">Dönüş Tarihi</label>
-                            <div className="relative">
-                                <input
-                                    type="date"
-                                    className="w-full p-2 border rounded-md pl-10"
-                                />
-                                <Calendar className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
-                            </div>
-                        </div>
-                    )}
                     <div className="col-span-2 sm:col-span-1">
                         <label className="block text-sm font-medium text-gray-700 mb-1">Yolcu Sayısı</label>
                         <div className="relative">

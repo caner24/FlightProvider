@@ -1,4 +1,6 @@
+using FlightProvider;
 using FlightProvider.Api.Extensions;
+using FlightProvider.Application;
 using FlightProvider.Entity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -13,11 +15,12 @@ builder.AddServiceDefaults();
 builder.Services.AddProblemDetails();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.ConfigureController();
-builder.Services.AddSoapClient();
 builder.Services.IdentityConfiguration(builder.Configuration);
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.Load("FlightProvider.Application")));
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddScoped<IAirSearch, AirSearch>();
+builder.Services.AddAutoMapper(typeof(Program));
 var app = builder.Build();
 app.MapDefaultEndpoints();
 

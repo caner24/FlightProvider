@@ -26,6 +26,7 @@
     <ProjectReference Include="..\FlightProvider.Entity\FlightProvider.Entity.csproj" />
     <ProjectReference Include="..\FlightProvider.Host\FlightProvider.Host.ServiceDefaults\FlightProvider.Host.ServiceDefaults.csproj" />
     <ProjectReference Include="..\FlightProvider.Infrastructure\FlightProvider.Infrastructure.csproj" />
+    <ProjectReference Include="..\FlightProvider.Presentation\FlightProvider.Presentation.csproj" />
   </ItemGroup>
 
 </Project>

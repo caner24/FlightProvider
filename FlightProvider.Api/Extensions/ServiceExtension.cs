@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using FlightProvider.Infrastructure.Concrete;
 using FlightProvider.Entity;
+using FlightProvider.Application;
 
 namespace FlightProvider.Api.Extensions
 {
@@ -33,25 +34,14 @@ namespace FlightProvider.Api.Extensions
      opt.TokenLifespan = TimeSpan.FromHours(2));
         }
 
-
-        public static void AddSoapClient(this IServiceCollection services)
-        {
-            services.AddHttpClient("soapApi", _ =>
-            {
-                _.BaseAddress = new Uri("http+https://flightprovidersoap");
-            });
-        }
-
         public static void ConfigureController(this IServiceCollection services)
         {
             services.AddControllers(config =>
             {
                 config.RespectBrowserAcceptHeader = true;
                 config.ReturnHttpNotAcceptable = true;
-                config.CacheProfiles.Add("5mins", new CacheProfile() { Duration = 300 });
             })
-.AddXmlDataContractSerializerFormatters()
-.AddApplicationPart(Assembly.Load("FlightProvider.Application"))
+.AddApplicationPart(typeof(FlightProvider.Presentation.Controllers.FlightController).Assembly)
 .AddNewtonsoftJson(opt =>
     opt.SerializerSettings.ReferenceLoopHandling =
     Newtonsoft.Json.ReferenceLoopHandling.Ignore

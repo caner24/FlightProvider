@@ -6,4 +6,23 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Flight\Handlers\QueryHandler\" />
+    <Folder Include="Flight\Queries\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="FluentResults" Version="3.16.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.8" />
+    <PackageReference Include="MediatR" Version="12.4.1" />
+    <PackageReference Include="System.ServiceModel.Http" Version="8.0.0" />
+    <PackageReference Include="System.ServiceModel.Primitives" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FlightProvider.Entity\FlightProvider.Entity.csproj" />
+    <ProjectReference Include="..\FlightProvider\FlightProvider.csproj" />
+  </ItemGroup>
+
 </Project>

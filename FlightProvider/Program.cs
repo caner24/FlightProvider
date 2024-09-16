@@ -21,6 +21,4 @@ app.UseServiceModel(bld =>
 });
 
 
-//app.MapGet("/", () => "Hello World!");
-
 app.Run();

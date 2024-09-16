@@ -9,8 +9,7 @@ var elastic = builder.AddElasticsearch("elasticsearch", password: elasticSearchP
 
 var flightProviderSoap = builder.AddProject<Projects.FlightProvider>("flightprovidersoap");
 
-var apiService = builder.AddProject<Projects.FlightProvider_Api>("flightproviderapi").
-    WithReference(flightProviderSoap)
+var apiService = builder.AddProject<Projects.FlightProvider_Api>("flightproviderapi")
     .WithReference(elastic)
     .WithExternalHttpEndpoints();
 
