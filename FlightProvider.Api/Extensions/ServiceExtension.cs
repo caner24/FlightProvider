@@ -7,6 +7,15 @@ using Microsoft.EntityFrameworkCore;
 using FlightProvider.Infrastructure.Concrete;
 using FlightProvider.Entity;
 using FlightProvider.Application;
+using Asp.Versioning;
+using Microsoft.Extensions.Configuration;
+using MassTransit;
+using FlightProvider.Api.Consumer;
+using FlightProvider.Api.Mail;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Stripe;
+using FlightProvider.Infrastructure.Abstract;
+using System.Security.Claims;
 
 namespace FlightProvider.Api.Extensions
 {
@@ -47,5 +56,76 @@ namespace FlightProvider.Api.Extensions
     Newtonsoft.Json.ReferenceLoopHandling.Ignore
 );
         }
+
+
+        public static void ConfigureApiVersioning(this IServiceCollection services)
+        {
+            var apiVersioningBuilder = services.AddApiVersioning(o =>
+            {
+                o.AssumeDefaultVersionWhenUnspecified = true;
+                o.DefaultApiVersion = new ApiVersion(1, 0);
+                o.ReportApiVersions = true;
+                o.ApiVersionReader = ApiVersionReader.Combine(
+                    new QueryStringApiVersionReader("api-version"),
+                    new HeaderApiVersionReader("X-Version"),
+                    new MediaTypeApiVersionReader("ver"));
+            });
+            apiVersioningBuilder.AddApiExplorer(
+    options =>
+    {
+        options.GroupNameFormat = "'v'VVV";
+        options.SubstituteApiVersionInUrl = true;
+    });
+        }
+        public static void ConfigureMassTransit(this IServiceCollection services, IConfiguration config)
+        {
+            services.AddMassTransit(x =>
+            {
+                x.SetKebabCaseEndpointNameFormatter();
+                x.AddConsumer<EmailConfirmationConsumer>();
+                x.UsingRabbitMq((context, cfg) =>
+                {
+                    var host = config.GetConnectionString("messaging");
+                    cfg.Host(host);
+                    cfg.ReceiveEndpoint("email-confirmation", e =>
+                    {
+                        e.ConfigureConsumer<EmailConfirmationConsumer>(context);
+                    });
+                });
+            });
+            services.AddSingleton<IEmailSender<User>, MailSender>();
+
+        }
+        public static void ConfigureMailService(this IServiceCollection services, IConfiguration configuration)
+        {
+            var email = configuration["EmailConfiguration:From"];
+            var smtp = configuration["EmailConfiguration:SmtpServer"];
+            var port = configuration["EmailConfiguration:Port"];
+            var username = configuration["EmailConfiguration:Username"];
+            var password = configuration["EmailConfiguration:Password"];
+
+            services.AddFluentEmail(email).AddSmtpSender(smtp, Convert.ToInt16(port), username, password);
+        }
+
+        public static void StripeConfigurationConfig(this IServiceCollection services, IConfiguration configuration)
+        {
+
+            StripeConfiguration.ApiKey = configuration["Stripe:Secret"];
+            services.AddSingleton<StripeClient>(provider => new StripeClient(configuration["Stripe:Secret"]));
+        }
+
+        public static void ServiceLifetimeSettings(this IServiceCollection services)
+        {
+            services.AddHttpContextAccessor();
+            services.AddTransient<ClaimsPrincipal>(provider =>
+            {
+                var context = provider.GetService<IHttpContextAccessor>();
+                return context?.HttpContext?.User ?? new ClaimsPrincipal();
+            });
+
+            services.AddScoped<IFlightDal, FlightDal>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+        }
+
     }
 }

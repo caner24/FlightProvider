@@ -1,4 +1,5 @@
 ﻿
+using Asp.Versioning;
 using FlightProvider.Application.Flight.Commands.Request;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +13,8 @@ namespace FlightProvider.Presentation.Controllers
 {
 
     [ApiController]
-    [Route("api/[controller]/")]
+    [Route("api/v{v:apiVersion}/[controller]/")]
+    [ApiVersion("1.0")]
     public class FlightController : ControllerBase
     {
         private readonly IMediator _mediator;

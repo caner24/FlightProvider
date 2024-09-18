@@ -12,6 +12,10 @@ namespace FlightProvider.Infrastructure.Concrete
 {
     public class FlightContext : IdentityDbContext<User>
     {
+        public FlightContext()
+        {
+            
+        }
         public FlightContext(DbContextOptions options) : base(options)
         {
 
