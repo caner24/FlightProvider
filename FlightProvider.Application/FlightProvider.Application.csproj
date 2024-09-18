@@ -9,19 +9,26 @@
   <ItemGroup>
     <Folder Include="Flight\Handlers\QueryHandler\" />
     <Folder Include="Flight\Queries\" />
+    <Folder Include="Stripe\Commands\Response\" />
+    <Folder Include="Stripe\Handlers\QueryHandler\" />
+    <Folder Include="Stripe\Queries\Response\" />
+    <Folder Include="Stripe\Queries\Request\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="FluentResults" Version="3.16.0" />
+    <PackageReference Include="MassTransit" Version="8.2.5" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.8" />
     <PackageReference Include="MediatR" Version="12.4.1" />
     <PackageReference Include="System.ServiceModel.Http" Version="8.0.0" />
     <PackageReference Include="System.ServiceModel.Primitives" Version="8.0.0" />
+    <PackageReference Include="Stripe.net" Version="45.13.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\FlightProvider.Entity\FlightProvider.Entity.csproj" />
+    <ProjectReference Include="..\FlightProvider.Infrastructure\FlightProvider.Infrastructure.csproj" />
     <ProjectReference Include="..\FlightProvider\FlightProvider.csproj" />
   </ItemGroup>
 
