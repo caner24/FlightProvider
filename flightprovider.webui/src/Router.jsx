@@ -8,6 +8,7 @@ import Login from '../src/Pages/Login/Login';
 import Ticket from '../src/Pages/Ticket/Ticket';
 import { useDispatch, useSelector } from "react-redux";
 import Register from "./Pages/Register/Register";
+import TicketDetail from './Pages/TicketDetail/TicketDetail'
 const App = () => {
 
     const dispatch = useDispatch();
@@ -47,7 +48,6 @@ const App = () => {
             dispatch({ type: "LOGIN_USER", payload: { user } });
             dispatch({ type: "SET_BEARER", payload: { bearer } });
             setInterval(refreshToken, refreshInterval - 5 * 60 * 1000);
-            getUserBasket();
         }
     }, [
         bearer,
@@ -63,16 +63,13 @@ const App = () => {
                 <Route path="/" element={<Layout />}>
                     <Route index element={<Home />} />
                     <Route path="/ticket" element={<Ticket />} />
+                    <Route path="/flightDetail" element={<TicketDetail />} />
                 </Route>
                 <Route path="*" element={<NotFound />} />
-                {user === null ? (
-                    <>
-                        <Route path="/login" element={<Login />} />
-                        <Route path="/register" element={<Register />} />
-                    </>
-                ) : (
-                    <Route path="/login" element={<Home />} />
-                )}
+
+                <Route path="/Login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+
             </Routes>
         </Router>
     );

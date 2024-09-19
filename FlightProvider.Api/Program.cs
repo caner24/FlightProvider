@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Serilog;
+using Stripe;
 using System.Reflection;
 using System.Web.Services.Description;
 
@@ -27,14 +28,23 @@ try
     builder.Services.IdentityConfiguration(builder.Configuration);
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.Load("FlightProvider.Application")));
-    builder.Services.AddSwaggerGen();
+    builder.Services.SwaggerConfig();
     builder.Services.AddScoped<IAirSearch, AirSearch>();
     builder.Services.ConfigureApiVersioning();
     builder.Services.ConfigureMassTransit(builder.Configuration);
     builder.Services.ConfigureMailService(builder.Configuration);
     builder.Services.StripeConfigurationConfig(builder.Configuration);
     builder.Services.ServiceLifetimeSettings();
-
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("AllowAll", builder =>
+        {
+            builder.AllowAnyOrigin()
+                   .AllowAnyHeader()
+                   .AllowAnyMethod()
+                   .WithExposedHeaders("Location"); // Expose the Location header
+        });
+    });
     builder.Services.AddAutoMapper(typeof(Program));
 
     var app = builder.Build();
@@ -45,12 +55,7 @@ try
         app.UseSwagger();
         app.UseSwaggerUI();
     }
-    app.UseCors(_ =>
-    {
-        _.AllowAnyHeader();
-        _.AllowAnyMethod();
-        _.AllowAnyOrigin();
-    });
+    app.UseCors("AllowAll");
     app.MapGroup("/api/identity").MapIdentityApi<User>();
     app.UseExceptionHandler();
     app.UseHttpsRedirection();

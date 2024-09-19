@@ -25,11 +25,12 @@ namespace FlightProvider.Presentation.Controllers
         }
 
         [HttpPost("createCheckoutSession")]
+        [Authorize]
         public async Task<IActionResult> CreateCheckoutSession([FromBody] CreateCheckoutRequest createCheckoutRequest)
         {
             var response = await _mediator.Send(createCheckoutRequest);
             Response.Headers.Add("Location", response.Value);
-            return AcceptedAtAction(nameof(Success), new { sessionId = response.Value });
+            return Ok();
         }
 
         [HttpGet("success")]
@@ -38,7 +39,7 @@ namespace FlightProvider.Presentation.Controllers
             var response = await _mediator.Send(createSuccessBillingCommandRequest);
             if (!response.IsSuccess)
                 return BadRequest(response.Errors);
-            return Ok();
+            return Redirect("http://localhost:5002/");
         }
 
         [HttpGet("cancel")]

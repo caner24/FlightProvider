@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Search } from 'lucide-react';
@@ -18,16 +18,32 @@ const Home = () => {
     const [ticketPrices, setTicketPrices] = useState({});
     const [maxDate, setMaxDate] = useState(null);
     const [flights, setFlights] = useState([]);
+    const [cities, setCities] = useState([]);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const CancelToken = axios.CancelToken;
     const source = CancelToken.source();
 
+    useEffect(() => {
+        fetchCities();
+    }, []);
+
+    const fetchCities = async () => {
+        try {
+            const response = await axios.get("https://localhost:7242/api/v1/Flight/GetFlightData");
+            if (response.data.isSuccess) {
+                setCities(response.data.cities);
+            }
+        } catch (error) {
+            console.error("Error fetching cities:", error);
+        }
+    };
+
     const getFlightData = async (date) => {
         console.log(date.toISOString());
         try {
-            const response = await axios.post("https://localhost:7242/api/Flight/AvailabilitySearchRequest",
+            const response = await axios.post("https://localhost:7242/api/v1/Flight/AvailabilitySearchRequest",
                 {
                     origin: origin,
                     destination: destination,
@@ -79,16 +95,14 @@ const Home = () => {
     const returnDateDispatch = (e) => {
         const selectedFlight = flights.find(flight => new Date(flight.departureDateTime).toISOString().split('T')[0] === format(e, 'yyyy-MM-dd'));
         dispatch({ type: 'SET_DEPARTURE', payload: selectedFlight });
-
-        var originResponse = { origin: origin, departure: destination };
-        console.log(originResponse);
-        dispatch({ type: 'SET_ORIGIN', payload: originResponse });
         setReturnDate(e);
     }
 
     const handleFormSubmit = (values) => {
         setOrigin(values.origin);
         setDestination(values.destination);
+        var originResponse = { origin: values.origin, departure: values.destination };
+        dispatch({ type: 'SET_ORIGIN', payload: originResponse });
         if (departureDate) {
             getFlightData(addDays(departureDate, 1));
         }
@@ -117,20 +131,32 @@ const Home = () => {
                                         <label className="block text-gray-700 mb-2">From</label>
                                         <Field
                                             name="origin"
-                                            type="text"
+                                            as="select"
                                             className="w-full border rounded px-3 py-2"
-                                            placeholder="Departure Airport"
-                                        />
+                                        >
+                                            <option value="">Select Departure Airport</option>
+                                            {cities.map((city) => (
+                                                <option key={city.code} value={city.code}>
+                                                    {city.title}
+                                                </option>
+                                            ))}
+                                        </Field>
                                         <ErrorMessage name="origin" component="div" className="text-red-500 text-sm" />
                                     </div>
                                     <div className="w-full md:w-1/2 px-2 mb-4">
                                         <label className="block text-gray-700 mb-2">To</label>
                                         <Field
                                             name="destination"
-                                            type="text"
+                                            as="select"
                                             className="w-full border rounded px-3 py-2"
-                                            placeholder="Arrival Airport"
-                                        />
+                                        >
+                                            <option value="">Select Arrival Airport</option>
+                                            {cities.map((city) => (
+                                                <option key={city.code} value={city.code}>
+                                                    {city.title}
+                                                </option>
+                                            ))}
+                                        </Field>
                                         <ErrorMessage name="destination" component="div" className="text-red-500 text-sm" />
                                     </div>
                                 </div>

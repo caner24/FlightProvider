@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace FlightProvider.Entity.Dto
 {
-    internal class PasswordResetDto
+  public  record FlightTicketDto
     {
+        public string Email { get; init; }
+        public string FlightNumber { get; init; }
+
     }
 }

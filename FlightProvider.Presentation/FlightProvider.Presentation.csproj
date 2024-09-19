@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="Asp.Versioning.Mvc" Version="8.1.0" />
     <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.1.0" />
+    <PackageReference Include="NEST" Version="7.17.5" />
     <PackageReference Include="Stripe.net" Version="45.13.0" />
   </ItemGroup>
 
