@@ -43,7 +43,7 @@ function Login() {
                 };
                 await axios
                     .get(
-                        "https://localhost:7242/api/identity/login",
+                        "https://localhost:7242/api/identity/manage/info",
                         options
                     )
                     .then((response) => {
@@ -117,15 +117,6 @@ function Login() {
                             {errors.password && (
                                 <p className="text-red-600">{errors.password}</p>
                             )}
-
-                            <div className="text-sm text-right">
-                                <button
-                                    onClick={() => setPasswordForget(true)}
-                                    className="font-semibold text-indigo-600 hover:text-indigo-500"
-                                >
-                                    Şifremi Unuttum?
-                                </button>
-                            </div>
 
                             <div>
                                 <button

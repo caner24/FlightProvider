@@ -4,23 +4,19 @@ using MassTransit;
 
 namespace FlightProvider.Api.Consumer
 {
-    public class FlightDetailConsumer : IConsumer<FlightDetailConsumerDto>
+    public class FlightDetailConsumer : IConsumer<FlightTicketDto>
     {
         private readonly IFluentEmail _fluentEmail;
         public FlightDetailConsumer(IFluentEmail fluentEmail)
         {
             _fluentEmail = fluentEmail;
         }
-        public async Task Consume(ConsumeContext<FlightDetailConsumerDto> context)
+        public async Task Consume(ConsumeContext<FlightTicketDto> context)
         {
             await _fluentEmail.To(context.Message.Email)
           .Subject("Biletiniz H.K.")
-          .Body($"Satın alımınız için teşekkürler !." +
-          $"Gidiş Tarihi :{context.Message.DepartureTime}" +
-          $"Gidiş Yeri : {context.Message.DepartureCity}" +
-          $"Varış Tarihi : {context.Message.ArrivalTime}" +
-          $"Varış Yeri : {context.Message.ArrivalCity}" +
-          $"Total Ücret : {context.Message.TotalPrice}")
+          .Body($"Satın alımınız için teşekkürler sitemiz üzerinden bilet detaylarınızı sorgulayabilirsiniz. !." +
+          $"Bilet Numarasi :{context.Message.FlightNumber}") 
           .SendAsync();
             await Task.CompletedTask;
         }

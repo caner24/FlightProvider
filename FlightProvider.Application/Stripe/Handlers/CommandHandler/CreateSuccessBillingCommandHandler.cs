@@ -13,6 +13,8 @@ using System.Threading.Tasks;
 using Stripe;
 using Stripe.Checkout;
 using Microsoft.Extensions.Options;
+using FlightProvider.Entity.Dto;
+using MassTransit.Transports;
 
 namespace FlightProvider.Application.Stripe.Handlers.CommandHandler
 {
@@ -33,10 +35,8 @@ namespace FlightProvider.Application.Stripe.Handlers.CommandHandler
             try
             {
                 Session session = service.Get(request.session_id);
-                var email = session.Metadata["emailadress"];
                 var index = 0;
 
-                var flightId = session.Metadata[$"flightid_{index}"];
                 var quantity = session.Metadata[$"quantity_{index}"];
                 var price = session.Metadata[$"price_{index}"];
 
@@ -49,12 +49,13 @@ namespace FlightProvider.Application.Stripe.Handlers.CommandHandler
                 var departureCity_ = session.Metadata[$"departureCity_{index}"];
 
 
-                var emailAdress = _claimsPrincipal.Claims.Where(x => x.Type == ClaimTypes.Email).FirstOrDefault().Value;
+                var flightNumber = Guid.NewGuid();
+                var emailAdress = session.Metadata[$"email_{index}"];
                 await _flightDal.AddAsync(new Entity.Flight
                 {
                     TotalPrice = Convert.ToDouble(price),
                     CreatedDate = DateTime.Now,
-                    FlightNo = Guid.NewGuid(),
+                    FlightNo = flightNumber,
                     FlightDetail = new List<FlightDetail>
     {
         new FlightDetail
@@ -66,8 +67,10 @@ namespace FlightProvider.Application.Stripe.Handlers.CommandHandler
             DepartureDate = DateOnly.FromDateTime(Convert.ToDateTime(departuredate_)),
             DepartureTime = TimeSpan.Parse(fligdeparturetime_htId)
         }
-    }
+                    }
                 });
+
+                await _publishEndpoint.Publish(new FlightTicketDto { Email = emailAdress, FlightNumber = flightNumber.ToString() });
 
 
                 return Result.Ok();

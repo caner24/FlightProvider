@@ -16,12 +16,49 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Stripe;
 using FlightProvider.Infrastructure.Abstract;
 using System.Security.Claims;
+using Elasticsearch.Net;
+using Nest;
+using static System.Reflection.Metadata.BlobBuilder;
+using Microsoft.OpenApi.Models;
 
 namespace FlightProvider.Api.Extensions
 {
     public static class ServiceExtension
     {
 
+
+        public static void SwaggerConfig(this IServiceCollection services)
+        {
+            services.AddSwaggerGen(_ =>
+            {
+                _.SwaggerDoc("v1", new OpenApiInfo { Title = "BestDigiSellerApp", Version = "v1" });
+                _.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Please enter token",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    BearerFormat = "JWT",
+                    Scheme = "bearer"
+                });
+
+                _.AddSecurityRequirement(new OpenApiSecurityRequirement
+{
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type=ReferenceType.SecurityScheme,
+                    Id="Bearer"
+                }
+            },
+            new string[]{}
+        }
+});
+            });
+
+        }
         public static void IdentityConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
             var connectionString = configuration.GetConnectionString("SqlConnection");
@@ -83,6 +120,7 @@ namespace FlightProvider.Api.Extensions
             {
                 x.SetKebabCaseEndpointNameFormatter();
                 x.AddConsumer<EmailConfirmationConsumer>();
+                x.AddConsumer<FlightDetailConsumer>();
                 x.UsingRabbitMq((context, cfg) =>
                 {
                     var host = config.GetConnectionString("messaging");
@@ -90,6 +128,10 @@ namespace FlightProvider.Api.Extensions
                     cfg.ReceiveEndpoint("email-confirmation", e =>
                     {
                         e.ConfigureConsumer<EmailConfirmationConsumer>(context);
+                    });
+                    cfg.ReceiveEndpoint("flight-confirmation", e =>
+                    {
+                        e.ConfigureConsumer<FlightDetailConsumer>(context);
                     });
                 });
             });
