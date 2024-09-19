@@ -20,6 +20,9 @@ using Elasticsearch.Net;
 using Nest;
 using static System.Reflection.Metadata.BlobBuilder;
 using Microsoft.OpenApi.Models;
+using FluentValidation;
+using FlightProvider.Entity.Dto;
+using FlightProvider.Application.Validation.FluentValidation;
 
 namespace FlightProvider.Api.Extensions
 {
@@ -167,6 +170,13 @@ namespace FlightProvider.Api.Extensions
 
             services.AddScoped<IFlightDal, FlightDal>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+        }
+
+        public static void FluentValidationSettings(this IServiceCollection services)
+        {
+            services.AddScoped<IValidator<EmailConfirmationDto>, EmailConfirmationDtoValidaton>();
+            services.AddScoped<IValidator<FlightDetailConsumerDto>, FlightDetailConsumerDtoValidation>();
+
         }
 
     }

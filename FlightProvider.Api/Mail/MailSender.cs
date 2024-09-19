@@ -18,7 +18,8 @@ namespace FlightProvider.Api.Mail
             using (var scope = _serviceProvider.CreateScope())
             {
                 var publishEndpoint = scope.ServiceProvider.GetRequiredService<IPublishEndpoint>();
-                await publishEndpoint.Publish(new EmailConfirmationDto { Email = email, User = user, ConfirmationLink = confirmationLink });
+                var encodedLink = Uri.EscapeDataString(confirmationLink);
+                await publishEndpoint.Publish(new EmailConfirmationDto { Email = email, User = user, ConfirmationLink = encodedLink });
             }
         }
 

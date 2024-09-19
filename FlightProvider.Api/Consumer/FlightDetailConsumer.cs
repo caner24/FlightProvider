@@ -13,6 +13,7 @@ namespace FlightProvider.Api.Consumer
         }
         public async Task Consume(ConsumeContext<FlightTicketDto> context)
         {
+
             await _fluentEmail.To(context.Message.Email)
           .Subject("Biletiniz H.K.")
           .Body($"Satın alımınız için teşekkürler sitemiz üzerinden bilet detaylarınızı sorgulayabilirsiniz. !." +

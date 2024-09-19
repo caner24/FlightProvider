@@ -8,7 +8,6 @@ namespace FlightProvider.Entity.Dto
 {
     public record FlightDetailConsumerDto
     {
-        public string Email { get; init; }
         public string DepartureDate { get; init; }
         public string DepartureTime { get; init; }
         public string ArrivalDate { get; init; }

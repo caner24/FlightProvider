@@ -13,6 +13,7 @@ const Ticket = () => {
     const departure = useSelector((state) => state.departure);
     const returnFlightsData = useSelector((state) => state.origin);
     const bearerToken = useSelector((state) => state.bearer);
+
     const navigate = useNavigate();
     useEffect(() => {
 

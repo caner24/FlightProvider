@@ -42,8 +42,13 @@ try
             builder.AllowAnyOrigin()
                    .AllowAnyHeader()
                    .AllowAnyMethod()
-                   .WithExposedHeaders("Location"); // Expose the Location header
+                   .WithExposedHeaders("Location");
         });
+    });
+
+    builder.Services.AddStackExchangeRedisOutputCache(_ =>
+    {
+        _.Configuration = builder.Configuration.GetConnectionString("cache");
     });
     builder.Services.AddAutoMapper(typeof(Program));
 

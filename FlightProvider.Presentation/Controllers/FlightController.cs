@@ -2,8 +2,10 @@
 using Asp.Versioning;
 using FlightProvider.Application.Flight.Commands.Request;
 using FlightProvider.Infrastructure.Abstract;
+using FlightProvider.Presentation.Attributes;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System;
@@ -29,6 +31,7 @@ namespace FlightProvider.Presentation.Controllers
         }
 
         [HttpPost("AvailabilitySearchRequest")]
+        [OutputCache(Duration = 60)]
         public async Task<IActionResult> AvailabilitySearchRequest([FromBody] AvailabilitySearchCommandRequest searchFlightCommandRequest)
         {
             var response = await _mediator.Send(searchFlightCommandRequest);
@@ -40,6 +43,7 @@ namespace FlightProvider.Presentation.Controllers
         }
 
         [HttpGet("GetFlightData")]
+        [OutputCache(Duration = 60)]
         public async Task<IActionResult> GetFlightData()
         {
             var client = new HttpClient();
@@ -53,6 +57,7 @@ namespace FlightProvider.Presentation.Controllers
         }
 
         [HttpGet("GetFlightWithNumber")]
+        [OutputCache(Duration = 60)]
         public async Task<IActionResult> GetFlightData([FromQuery] string flightNumber)
         {
             if (!Guid.TryParse(flightNumber, out Guid flightGuid))
@@ -60,7 +65,7 @@ namespace FlightProvider.Presentation.Controllers
                 return BadRequest("Invalid flight number format.");
             }
             var response = await _unitOfWork.FlightDal
-                .Get(x => x.FlightNo == flightGuid).Include(x=>x.FlightDetail)
+                .Get(x => x.FlightNo == flightGuid).Include(x => x.FlightDetail)
                 .FirstOrDefaultAsync();
 
             if (response == null)

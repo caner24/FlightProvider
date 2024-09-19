@@ -2,7 +2,7 @@
 import FormInput from "../../componenets/FormInput/FormInput";
 import axios from "axios";
 import { Formik } from "formik";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
 import * as Yup from "yup";
 
 function Register() {
@@ -17,37 +17,42 @@ function Register() {
     });
 
     const [loginContent, setLoginContent] = useState("");
+    const navigate = useNavigate(); // Initialize useNavigate
 
     async function RegisterUser(values) {
-        await axios
-            .post(
+        try {
+            const response = await axios.post(
                 "https://localhost:7242/api/identity/register",
                 {
                     email: values.email,
                     password: values.password,
                 }
-            )
-            .then(async (response) => {
-                if (response.success) {
-                    setLoginContent("Mailinize onay linki gönderilmiştir !.");
-                }
-            })
-            .catch((error) => {
-                setLoginContent("Bir hata oluştu !.");
-                console.log(error);
-            });
+            );
+
+            if (response.status === 200) { // Check response status
+                setLoginContent("Mailinize onay linki gönderilmiştir !");
+                setTimeout(() => {
+                    navigate("/login"); // Redirect to login page after a short delay
+                }, 2000);
+            } else {
+                setLoginContent("Bir hata oluştu !");
+            }
+        } catch (error) {
+            setLoginContent("Bir hata oluştu !");
+            console.log(error);
+        }
     }
 
     return (
         <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-                <image
+                <img
                     src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
                     alt="Your Company"
                     className="mx-auto h-10 w-auto"
                 />
                 <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-                    Kayit Olun !.
+                    Kayit Olun !
                 </h2>
             </div>
 
@@ -71,7 +76,7 @@ function Register() {
                                 nameInput={"email"}
                                 onChange={handleChange}
                                 typeInput={"email"}
-                                labelText={"Email Adress"}
+                                labelText={"Email Address"}
                             ></FormInput>
                             {errors.email && <p className="text-red-600">{errors.email}</p>}
 

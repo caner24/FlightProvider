@@ -15,11 +15,22 @@ namespace FlightProvider.Api.Consumer
         }
         public async Task Consume(ConsumeContext<EmailConfirmationDto> context)
         {
-                await _fluentEmail.To(context.Message.Email)
-              .Subject("Mail Onaylama H.K.")
-              .Body($"Mail Onaylama linki :{context.Message.ConfirmationLink}")
-              .SendAsync();
-                await Task.CompletedTask;
+
+
+            var decodedLink = Uri.UnescapeDataString(context.Message.ConfirmationLink);
+
+            var htmlBody = $@"
+        <html>
+        <body>
+            <p>Mail Onaylama linki:</p>
+            <a href='{decodedLink}'>Onaylama Linkine Git</a>
+        </body>
+        </html>";
+
+            await _fluentEmail.To(context.Message.Email)
+                .Subject("Mail Onaylama H.K.")
+                .Body(htmlBody, isHtml: true)
+                .SendAsync();
         }
     }
 }

@@ -14,6 +14,7 @@ const Home = () => {
     const [returnDate, setReturnDate] = useState(null);
     const [returnMinDate, setReturnMinDate] = useState(null);
     const [origin, setOrigin] = useState("");
+    const [arrivalDate, setArrivalDate] = useState(null);
     const [destination, setDestination] = useState("");
     const [ticketPrices, setTicketPrices] = useState({});
     const [maxDate, setMaxDate] = useState(null);
